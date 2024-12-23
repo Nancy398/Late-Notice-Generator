@@ -60,8 +60,8 @@ if st.button("生成 PDF"):
     word_buffer.seek(0)
 
     with tempfile.NamedTemporaryFile(delete=False, suffix='.docx') as temp_docx:
-    temp_docx.write(word_buffer.getvalue())
-    temp_docx.close()
+        temp_docx.write(word_buffer.getvalue())
+        temp_docx.close()
 
     # 使用 Pandoc 转换为 PDF
     pdf_output_path = temp_docx.name.replace('.docx', '.pdf')
