@@ -1,5 +1,4 @@
 import streamlit as st
-from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
 from num2words import num2words  # 用于将数字转换为英文大写
