@@ -1,5 +1,5 @@
 streamlit
-reportlab.pdfgen
-io
 num2words
 datetime
+docx
+pypandoc
