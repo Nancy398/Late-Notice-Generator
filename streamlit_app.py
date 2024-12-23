@@ -4,11 +4,11 @@ import pypandoc
 from io import BytesIO
 from num2words import num2words  # 用于将数字转换为英文大写
 from datetime import datetime
-from docxtpl import DocxTemplate
+from docx import Document
 
 # 加载本地模板
 def load_template(file_path="Late Rent Notice Template.docx"):
-    return DocxTemplate(file_path)
+    return Document(file_path)
 
 st.title("基于内置模板生成 PDF")
 
