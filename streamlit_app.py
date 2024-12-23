@@ -50,7 +50,7 @@ if st.button("生成 PDF"):
         if "{Title}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{Title}", title)
         if "{Amount}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{Amount}", amount)
+            paragraph.text = paragraph.text.replace("{Amount}", str(amount))
         if "{Amount_Words}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{Amount_Words}", amount_words)
 
