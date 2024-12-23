@@ -2,4 +2,4 @@ streamlit
 num2words
 datetime
 pypandoc
-docxtp
+docxtpl
