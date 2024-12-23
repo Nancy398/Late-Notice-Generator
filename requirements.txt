@@ -3,4 +3,3 @@ num2words
 datetime
 docx
 pypandoc
-exceptions
