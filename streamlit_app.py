@@ -1,7 +1,9 @@
 import streamlit as st
-from docx import Document
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 from io import BytesIO
-import pypandoc
+from num2words import num2words  # 用于将数字转换为英文大写
+from datetime import datetime
 
 # 加载本地模板
 def load_template(file_path="template.docx"):
@@ -10,9 +12,22 @@ def load_template(file_path="template.docx"):
 st.title("基于内置模板生成 PDF")
 
 # 用户输入替换值
-name = st.text_input("姓名", "示例姓名")
-date = st.date_input("日期")
-message = st.text_area("消息", "这是一个示例消息")
+last_name = st.text_input("Last Name")
+first_name = st.text_input("First Name")
+address = st.text_area("Address")
+postal = st.text_input("Postal Code")
+title = st.selectbox("Title", ["Mr.", "Ms."])
+amount = st.number_input("Amount", min_value=0.0, format="%.2f")
+
+# 将金额转换为英文大写
+def amount_to_words(amount):
+    return num2words(amount, to='currency', lang='en')
+amount_words = amount_to_words(amount)
+
+def get_current_date():
+    now = datetime.now()
+    return now.strftime("%B %d, %Y")
+current_date = get_current_date()
 
 if st.button("生成 PDF"):
     # 加载模板
@@ -20,12 +35,22 @@ if st.button("生成 PDF"):
 
     # 替换占位符
     for paragraph in doc.paragraphs:
-        if "{name}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{name}", name)
-        if "{date}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{date}", str(date))
-        if "{message}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{message}", message)
+        if "{First Name}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{First Name}", first_name)
+        if "{Last Name}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Last Name}", last_name)
+        if "{Date}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Date}", current_date)
+        if "{Address}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Address}", address)
+        if "{Postal}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Postal}", postal)
+        if "{Title}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Title}", title)
+        if "{Amount}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Amount}", amount)
+        if "{Amount_Words}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Amount_Words}", amount_words)
 
     # 保存修改后的 Word 文档到内存
     word_buffer = BytesIO()
