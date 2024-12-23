@@ -1,1 +1,6 @@
 streamlit
+reportlab.lib.pagesizes
+reportlab.pdfgen
+io
+num2words
+datetime
