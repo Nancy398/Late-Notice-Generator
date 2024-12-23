@@ -61,7 +61,7 @@ if st.button("生成 PDF"):
 
     # 转换为 PDF
     pdf_output = BytesIO()
-    pypandoc.convert_file(
+    pypandoc.convert(
         word_buffer, "pdf", format="docx", outputfile=pdf_output
     )
     pdf_output.seek(0)
