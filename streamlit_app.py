@@ -59,18 +59,20 @@ if st.button("生成 PDF"):
     doc.save(word_buffer)
     word_buffer.seek(0)
 
-    # 转换为 PDF
-    pdf_output = BytesIO()
-    pypandoc.convert_file(
-        word_buffer, "pdf", format="docx", outputfile=pdf_output
-    )
-    pdf_output.seek(0)
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.docx') as temp_docx:
+    temp_docx.write(word_buffer.getvalue())
+    temp_docx.close()
+
+    # 使用 Pandoc 转换为 PDF
+    pdf_output_path = temp_docx.name.replace('.docx', '.pdf')
+    pypandoc.convert_file(temp_docx.name, 'pdf', format='docx', outputfile=pdf_output_path)
+
 
     # 提供下载链接
     st.success("PDF 已生成！")
     st.download_button(
         label="下载生成的 PDF",
-        data=pdf_output,
+        data=word_buffer.getvalue(),
         file_name="generated_template.pdf",
         mime="application/pdf",
     )
