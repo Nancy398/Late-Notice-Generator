@@ -49,19 +49,23 @@ if st.button("生成 PDF"):
         if "{gender}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{gender}", title)
         if "{Amount}" in paragraph.text:
-            inline = paragraph.runs  # 获取段落中的所有 run（文本段）
-            for run in inline:
-                if '{Amount}' in run.text:
-                    run.text = run.text.replace("{Amount}", str(amount))
-                    run.bold = True
-                    run.underline = True
+            before_text = paragraph.text.split("{Amount}")[0]
+            after_text = paragraph.text.split("{Amount}")[1]
+            paragraph.clear()
+            paragraph.add_run(before_text)
+            run = paragraph.add_run(amount)
+            run.bold = True
+            run.underline = True
+            paragraph.add_run(after_text)
         if "{Amount Words}" in paragraph.text:
-            inline = paragraph.runs  # 获取段落中的所有 run（文本段）
-            for run in inline:
-                if '{Amount}' in run.text:
-                    run.text = run.text.replace("{Amount Words}", amount_words)
-                    run.bold = True
-                    run.underline = True
+            before_text = paragraph.text.split("{Amount Words}")[0]
+            after_text = paragraph.text.split("{Amount Words}")[1]
+            paragraph.clear()
+            paragraph.add_run(before_text)
+            run = paragraph.add_run(amount_words)
+            run.bold = True
+            run.underline = True
+            paragraph.add_run(after_text)
 
     # 保存修改后的 Word 文档到内存
     word_buffer = BytesIO()
