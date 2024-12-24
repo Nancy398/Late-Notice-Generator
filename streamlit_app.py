@@ -70,18 +70,20 @@ if st.button("生成 PDF"):
 
     # 保存修改后的 Word 文档到内存
     word_buffer = BytesIO()
-    doc.save(word_buffer)
-    word_buffer.seek(0)
+    doc.save('modified.docx')
+    # word_buffer.seek(0)
+    output_pdf = "output.pdf"
     pypandoc.convert_file(
-            word_buffer, "pdf", format="docx", outputfile='Late Notice.pdf'
+            'modified.docx', "pdf", format="docx", outputfile='output_pdf'
         )
 
 
     # 提供下载链接
     st.success("PDF 已生成！")
+    with open(output_pdf, "rb") as f:
     st.download_button(
-        label="下载生成的 PDF",
-        data=word_buffer.getvalue(),
-        file_name="generated_template.docx",
-        mime="application/pdf",
+        label="下载 PDF 文件",
+        data=f,
+        file_name="Late Notice.pdf",
+        mime="application/pdf"
     )
