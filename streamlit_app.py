@@ -69,23 +69,35 @@ if st.button("生成 PDF"):
             paragraph.add_run(after_text)
 
     # 保存修改后的 Word 文档到内存
-    word_buffer = BytesIO()
-    doc.save(word_buffer)
-    word_buffer.seek(0)
+#     word_buffer = BytesIO()
+#     doc.save(word_buffer)
+#     word_buffer.seek(0)
     
-    pdf_output = BytesIO()
-# 通过 Pandoc 转换 DOCX 到 PDF
+#     pdf_output = BytesIO()
+# # 通过 Pandoc 转换 DOCX 到 PDF
     
-    pypandoc.convert_file(word_buffer, to='pdf', format='docx', outputfile=pdf_output)
-    pdf_output.seek(0)
+#     pypandoc.convert_file(word_buffer, to='pdf', format='docx', outputfile=pdf_output)
+#     pdf_output.seek(0)
 
 
-    # 提供下载链接
-    st.success("PDF 已生成！")
-    with open(output_pdf, "rb") as f:
-        st.download_button(
-            label="下载 PDF 文件",
-            data=f,
-            file_name="Late Notice.pdf",
-            mime="application/pdf"
-        )
+#     # 提供下载链接
+#     st.success("PDF 已生成！")
+#     with open(output_pdf, "rb") as f:
+#         st.download_button(
+#             label="下载 PDF 文件",
+#             data=f,
+#             file_name="Late Notice.pdf",
+#             mime="application/pdf"
+#         )
+
+import tempfile
+
+# 创建临时文件
+with tempfile.NamedTemporaryFile(suffix=".docx", delete=False) as temp_docx:
+    doc.save(temp_docx.name)
+    
+    # 使用 Pandoc 转换 DOCX 到 PDF
+    pdf_output_path = temp_docx.name.replace(".docx", ".pdf")
+    pypandoc.convert_file(temp_docx.name, to='pdf', format='docx', outputfile=pdf_output_path)
+    
+    print(f"PDF saved to {pdf_output_path}")
