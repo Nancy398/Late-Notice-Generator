@@ -81,9 +81,9 @@ if st.button("生成 PDF"):
     # 提供下载链接
     st.success("PDF 已生成！")
     with open(output_pdf, "rb") as f:
-    st.download_button(
-        label="下载 PDF 文件",
-        data=f,
-        file_name="Late Notice.pdf",
-        mime="application/pdf"
-    )
+        st.download_button(
+            label="下载 PDF 文件",
+            data=f,
+            file_name="Late Notice.pdf",
+            mime="application/pdf"
+        )
