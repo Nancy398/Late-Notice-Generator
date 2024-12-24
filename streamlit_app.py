@@ -90,14 +90,30 @@ if st.button("生成 PDF"):
 #             mime="application/pdf"
 #         )
 
-import tempfile
+import os
 
-# 创建临时文件
-with tempfile.NamedTemporaryFile(suffix=".docx", delete=False) as temp_docx:
-    doc.save(temp_docx.name)
-    
-    # 使用 Pandoc 转换 DOCX 到 PDF
-    pdf_output_path = temp_docx.name.replace(".docx", ".pdf")
-    pypandoc.convert_file(temp_docx.name, to='pdf', format='docx', outputfile=pdf_output_path)
-    
-    print(f"PDF saved to {pdf_output_path}")
+# 使用 Pandoc 将 DOCX 转换为 PDF
+def convert_docx_to_pdf(docx_path):
+    # 创建临时 PDF 文件
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_pdf:
+        # 使用 Pandoc 转换文件
+        pdf_output_path = temp_pdf.name
+        pypandoc.convert_file(docx_path, to='pdf', format='docx', outputfile=pdf_output_path)
+        return pdf_output_path
+
+pdf_output_path = convert_docx_to_pdf(doc)
+        
+        # 显示 PDF 文件下载链接
+with open(pdf_output_path, "rb") as pdf_file:
+    st.download_button(
+        label="Download PDF",
+        data=pdf_file,
+        file_name="converted_document.pdf",
+        mime="application/pdf"
+            )
+
+        # 删除临时文件
+os.remove(docx_path)
+os.remove(pdf_output_path)
+
+
