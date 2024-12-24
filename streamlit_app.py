@@ -18,7 +18,7 @@ first_name = st.text_input("First Name")
 address = st.text_area("Address")
 postal = st.text_input("Postal Code")
 title = st.selectbox("Title", ["Mr.", "Ms."])
-amount = st.number_input("Amount", min_value=0.0, format="{:,.2f}")
+amount = st.number_input("Amount", min_value=0.0, format=":,.2f")
 
 # 将金额转换为英文大写
 def amount_to_words(amount):
