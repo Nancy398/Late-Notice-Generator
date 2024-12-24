@@ -52,7 +52,7 @@ if st.button("生成 PDF"):
             inline = paragraph.runs  # 获取段落中的所有 run（文本段）
             for run in inline:
                 if '{Amount}' in run.text:
-                    run.text = run.text.replace("{Amount}", amount)
+                    run.text = run.text.replace("{Amount}", str(amount))
                     run.bold = True
                     run.underline = True
         if "{Amount Words}" in paragraph.text:
