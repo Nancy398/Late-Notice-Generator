@@ -72,6 +72,6 @@ if st.button("生成 PDF"):
     st.download_button(
         label="下载生成的 PDF",
         data=word_buffer.getvalue(),
-        file_name="generated_template.pdf",
+        file_name="generated_template.docx",
         mime="application/pdf",
     )
