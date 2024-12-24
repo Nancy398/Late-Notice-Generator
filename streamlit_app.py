@@ -10,7 +10,7 @@ import tempfile
 # 加载本地模板
 def load_template(file_path="Late Rent Notice Template.docx"):
     return Document(file_path)
-
+doc = load_template()
 st.title("基于内置模板生成 PDF")
 
 # 用户输入替换值
@@ -33,10 +33,6 @@ def get_current_date():
 current_date = get_current_date()
 
 if st.button("生成 PDF"):
-    # 加载模板
-    doc = load_template()
-
-    # 替换占位符
     for paragraph in doc.paragraphs:
         if "{First Name}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{First Name}", first_name)
