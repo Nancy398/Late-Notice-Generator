@@ -46,8 +46,8 @@ if st.button("生成 PDF"):
             paragraph.text = paragraph.text.replace("{Address}", address)
         if "{Postal}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{Postal}", postal)
-        if "{Title}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{Title}", title)
+        if "{gender}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{gender}", title)
         if "{Amount}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{Amount}", str(amount))
         if "{Amount Words}" in paragraph.text:
