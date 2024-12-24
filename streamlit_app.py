@@ -50,8 +50,8 @@ if st.button("生成 PDF"):
             paragraph.text = paragraph.text.replace("{Title}", title)
         if "{Amount}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{Amount}", str(amount))
-        if "{Amount_Words}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{Amount_Words}", amount_words)
+        if "{Amount Words}" in paragraph.text:
+            paragraph.text = paragraph.text.replace("{Amount Words}", amount_words)
 
     # 保存修改后的 Word 文档到内存
     word_buffer = BytesIO()
