@@ -71,11 +71,13 @@ if st.button("生成 PDF"):
     # 保存修改后的 Word 文档到内存
     word_buffer = BytesIO()
     doc.save(word_buffer)
+    word_buffer.seek(0)
     
     pdf_output = BytesIO()
 # 通过 Pandoc 转换 DOCX 到 PDF
     
     pypandoc.convert_file(word_buffer, to='pdf', format='docx', outputfile=pdf_output)
+    pdf_output.seek(0)
 
 
     # 提供下载链接
