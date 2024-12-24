@@ -70,8 +70,7 @@ if st.button("生成 PDF"):
 
     # 保存修改后的 Word 文档到内存
     word_buffer = BytesIO()
-    doc.save('modified.docx')
-    input_docx = "modified_file.docx"
+    input_docx = doc.save('modified.docx')
     output_pdf = "output.pdf"
 
 # 通过 Pandoc 转换 DOCX 到 PDF
