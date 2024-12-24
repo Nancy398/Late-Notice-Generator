@@ -22,7 +22,7 @@ amount = st.number_input("Amount", min_value=0.0, format="%.2f")
 
 # 将金额转换为英文大写
 def amount_to_words(amount):
-    return num2words(amount, to='currency', lang='en')
+    return num2words(amount, to='currency', lang='en', currency ='USD').title()
 amount_words = amount_to_words(amount)
 
 def get_current_date():
@@ -50,8 +50,12 @@ if st.button("生成 PDF"):
             paragraph.text = paragraph.text.replace("{gender}", title)
         if "{Amount}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{Amount}", str(amount))
+            paragraph.bold = True
+            paragraph.underline = True
         if "{Amount Words}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{Amount Words}", amount_words)
+            paragraph.bold = True
+            paragraph.underline = True
 
     # 保存修改后的 Word 文档到内存
     word_buffer = BytesIO()
