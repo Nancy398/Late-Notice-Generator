@@ -18,7 +18,8 @@ first_name = st.text_input("First Name")
 address = st.text_area("Address")
 postal = st.text_input("Postal Code")
 title = st.selectbox("Title", ["Mr.", "Ms."])
-amount = st.number_input("Amount", min_value=0.0, format=":,.2f")
+amount = st.number_input("Amount", min_value=0.0, format="%.2f")
+formatted_amount = "{:,.2f}".format(amount)
 
 # 将金额转换为英文大写
 def amount_to_words(amount):
@@ -53,7 +54,7 @@ if st.button("生成 PDF"):
             after_text = paragraph.text.split("{Amount}")[1]
             paragraph.clear()
             paragraph.add_run(before_text)
-            run = paragraph.add_run(str(amount))
+            run = paragraph.add_run(str(formatted_amount))
             run.bold = True
             run.underline = True
             paragraph.add_run(after_text)
