@@ -72,9 +72,8 @@ if st.button("生成 PDF"):
     word_buffer = BytesIO()
     doc.save(word_buffer)
     word_buffer.seek(0)
-    pdf_output = BytesIO()
     pypandoc.convert_file(
-            word_buffer, "pdf", format="docx", outputfile=pdf_output
+            word_buffer, "pdf", format="docx", outputfile='Late Notice.pdf'
         )
 
 
