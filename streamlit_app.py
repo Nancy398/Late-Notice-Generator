@@ -53,7 +53,7 @@ if st.button("生成 PDF"):
             after_text = paragraph.text.split("{Amount}")[1]
             paragraph.clear()
             paragraph.add_run(before_text)
-            run = paragraph.add_run(amount)
+            run = paragraph.add_run(str(amount))
             run.bold = True
             run.underline = True
             paragraph.add_run(after_text)
