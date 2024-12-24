@@ -48,7 +48,7 @@ if st.button("生成 PDF"):
             paragraph.text = paragraph.text.replace("{Postal}", postal)
         if "{gender}" in paragraph.text:
             paragraph.text = paragraph.text.replace("{gender}", title)
-        if "{Amount}" in paragraph.run:
+        if "{Amount}" in paragraph.text:
             inline = paragraph.runs  # 获取段落中的所有 run（文本段）
             for run in inline:
                 if '{Amount}' in run.text:
