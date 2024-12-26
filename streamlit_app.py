@@ -4,7 +4,7 @@ import pypandoc
 from num2words import num2words  # 用于将数字转换为英文大写
 from datetime import datetime
 from docx import Document
-
+from docx2pdf import convert
 
 # 加载本地模板
 def load_template(file_path="Late Rent Notice Template.docx"):
@@ -67,20 +67,12 @@ if st.button("生成 PDF"):
 buffer = BytesIO()
 doc.save(buffer)
 buffer.seek(0)
-
-import subprocess
-
-def convert_docx_to_pdf(docx_path):
-    output = "output.pdf"
-    subprocess.run(['unoconv', '-f', 'pdf', docx_path])
-    return output
-
-pdf_file = convert_docx_to_pdf(buffer)
-
+output_pdf = "output.pdf"
+convert(buffer, output_pdf)
 
 #     # 提供下载链接
 st.success("PDF 已生成！")
-with open(pdf_file, "rb") as f:
+with open(output_pdf, "rb") as f:
     st.download_button(
         label="下载 PDF 文件",
         data=f,
