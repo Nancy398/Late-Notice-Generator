@@ -64,9 +64,7 @@ if st.button("生成 PDF"):
             run.underline = True
             paragraph.add_run(after_text)
 
-buffer = BytesIO()
 doc.save(buffer)
-buffer.seek(0)
 output_pdf = "output.pdf"
 convert(buffer, output_pdf)
 
