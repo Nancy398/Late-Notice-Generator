@@ -4,8 +4,6 @@ import pypandoc
 from num2words import num2words  # 用于将数字转换为英文大写
 from datetime import datetime
 from docx import Document
-from Spire.Doc import Document as SpireDoc
-from Spire.Doc import FileFormat
 
 
 # 加载本地模板
@@ -69,33 +67,20 @@ if st.button("生成 PDF"):
 buffer = BytesIO()
 doc.save(buffer)
 buffer.seek(0)
-pdf_buffer = BytesIO()
-def convert_to_pdf(docx_data):
-    """
-    将 DOCX 数据转换为 PDF。
-    """
-    try:
-        # 加载 DOCX 数据到 Spire.Doc
-        spire_doc = SpireDoc()
-        spire_doc.LoadFromStream(BytesIO(docx_data))
-        
-        # 转换为 PDF 文件字节流
-        pdf_output = BytesIO()
-        spire_doc.SaveToStream(pdf_output, FileFormat.PDF)
-        spire_doc.Close()
-        
-        pdf_output.seek(0)
-        return pdf_output
-    except Exception as e:
-        st.error(f"文档转换失败: {e}")
-        return None
-pdf_data = convert_to_pdf(buffer.getvalue())
-if pdf_data:
-            st.success("文档生成成功！")
-    
+
+import subprocess
+
+def convert_docx_to_pdf(docx_path):
+    output = "output.pdf"
+    subprocess.run(['unoconv', '-f', 'pdf', docx_path])
+    return output
+
+pdf_file = convert_docx_to_pdf(buffer)
+
+
 #     # 提供下载链接
 st.success("PDF 已生成！")
-with open(output_pdf, "rb") as f:
+with open(pdf_file, "rb") as f:
     st.download_button(
         label="下载 PDF 文件",
         data=f,
