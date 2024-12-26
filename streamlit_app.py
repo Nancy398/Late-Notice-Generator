@@ -71,7 +71,7 @@ with open("Transfer.docx", "rb") as f:
     st.download_button(
         label="下载 docx 文件",
         data=f,
-        file_name="Late Notice.pdf",
+        file_name="Late Notice.docx",
         mime="application/pdf"
     )
 
