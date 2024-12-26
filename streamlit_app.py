@@ -76,7 +76,7 @@ with open("Transfer.docx", "rb") as f:
 
 
 st.title("DOCX to PDF Converter")
-
+pypandoc.download_pandoc()
 # File uploader to upload DOCX
 uploaded_file = st.file_uploader("Upload DOCX File", type=["docx"])
 
