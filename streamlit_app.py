@@ -64,9 +64,9 @@ if st.button("生成 PDF"):
             run.underline = True
             paragraph.add_run(after_text)
 
-doc.save(buffer)
+doc.save("Transfer.docx")
 output_pdf = "output.pdf"
-convert(buffer, output_pdf)
+convert("Transfer.docx", output_pdf)
 
 #     # 提供下载链接
 st.success("PDF 已生成！")
