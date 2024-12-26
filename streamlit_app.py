@@ -65,19 +65,32 @@ if st.button("生成 PDF"):
             paragraph.add_run(after_text)
 
 doc.save("Transfer.docx")
-output_pdf = "output.pdf"
-convert("Transfer.docx", output_pdf)
-
 #     # 提供下载链接
-st.success("PDF 已生成！")
-with open(output_pdf, "rb") as f:
+st.success("Docx 已生成！")
+with open("Transfer.docx", "rb") as f:
     st.download_button(
-        label="下载 PDF 文件",
+        label="下载 docx 文件",
         data=f,
         file_name="Late Notice.pdf",
         mime="application/pdf"
     )
 
 
+st.title("DOCX to PDF Converter")
 
+# File uploader to upload DOCX
+uploaded_file = st.file_uploader("Upload DOCX File", type=["docx"])
+
+if uploaded_file is not None:
+    # Save the uploaded file locally
+    with open("uploaded_file.docx", "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    
+    # Convert DOCX to PDF using pypandoc
+    try:
+        output = pypandoc.convert_file("uploaded_file.docx", to='pdf')
+        with open("output.pdf", "rb") as f:
+            st.download_button("Download PDF", f, file_name="output.pdf", mime="application/pdf")
+    except Exception as e:
+        st.error(f"Error: {e}")
 
