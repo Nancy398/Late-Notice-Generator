@@ -89,16 +89,11 @@ if st.button("生成 PDF"):
 
 import os
 
-# 使用 Pandoc 将 DOCX 转换为 PDF
-def convert_docx_to_pdf(docx_path):
-    # 创建临时 PDF 文件
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_pdf:
-        # 使用 Pandoc 转换文件
-        pdf_output_path = temp_pdf.name
-        pypandoc.convert_file(doc, to='pdf', format='docx', outputfile=pdf_output_path)
-        return pdf_output_path
+with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp_file:
+    doc.save(tmp_file.name)
+pdf_output_path = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf").name
+pypandoc.convert_file(tmp_file.name, to="pdf", format="docx", outputfile=pdf_output_path)
 
-pdf_output_path = convert_docx_to_pdf(doc)
         
         # 显示 PDF 文件下载链接
 with open(pdf_output_path, "rb") as pdf_file:
