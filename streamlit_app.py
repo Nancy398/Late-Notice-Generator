@@ -4,7 +4,6 @@ import pypandoc
 from num2words import num2words  # 用于将数字转换为英文大写
 from datetime import datetime
 from docx import Document
-import tempfile
 
 
 # 加载本地模板
@@ -65,6 +64,18 @@ if st.button("生成 PDF"):
             run.underline = True
             paragraph.add_run(after_text)
 
+buffer = BytesIO()
+doc.save(buffer)
+buffer.seek(0)
+pdf_buffer = BytesIO()
+pypandoc.convert_file(
+        buffer,
+        to="pdf",
+        format="docx",
+        outputfile=pdf_buffer,
+    )
+pdf_buffer.seek(0)
+
     # 保存修改后的 Word 文档到内存
 #     word_buffer = BytesIO()
 #     doc.save(word_buffer)
@@ -78,34 +89,15 @@ if st.button("生成 PDF"):
 
 
 #     # 提供下载链接
-#     st.success("PDF 已生成！")
-#     with open(output_pdf, "rb") as f:
-#         st.download_button(
-#             label="下载 PDF 文件",
-#             data=f,
-#             file_name="Late Notice.pdf",
-#             mime="application/pdf"
-#         )
-
-import os
-
-with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp_file:
-    doc.save(tmp_file.name)
-pdf_output_path = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf").name
-pypandoc.convert_file(tmp_file.name, to="pdf", format="docx", outputfile=pdf_output_path)
-
-        
-        # 显示 PDF 文件下载链接
-with open(pdf_output_path, "rb") as pdf_file:
+st.success("PDF 已生成！")
+with open(output_pdf, "rb") as f:
     st.download_button(
-        label="Download PDF",
-        data=pdf_file,
-        file_name="converted_document.pdf",
+        label="下载 PDF 文件",
+        data=f,
+        file_name="Late Notice.pdf",
         mime="application/pdf"
-            )
+    )
 
-        # 删除临时文件
-os.remove(docx_path)
-os.remove(pdf_output_path)
+
 
 
