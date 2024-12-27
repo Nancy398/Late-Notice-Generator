@@ -75,31 +75,36 @@ with open("Transfer.docx", "rb") as f:
     )
 
 
-st.title("DOCX to PDF Converter")
-pypandoc.download_pandoc()
+
+# Title of the Streamlit app
 st.title("DOCX to PDF Converter")
 
+# File uploader
 uploaded_file = st.file_uploader("Upload DOCX file", type="docx")
 
 if uploaded_file is not None:
-    # Save the uploaded file temporarily
-    input_file_path = "uploaded_file.docx"
-    with open(input_file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
-    
-    # Define the output file path
-    output_file_path = "output.pdf"
-    
-    # Convert the DOCX file to PDF using pypandoc
+    # Save the uploaded DOCX file to BytesIO object
+    docx_file = BytesIO(uploaded_file.read())
+
+    # Convert the DOCX to PDF using pypandoc
     try:
-        # Call pypandoc.convert_file with file paths (not BytesIO objects)
-        pypandoc.convert_file(input_file_path, to='pdf', format='docx', outputfile=output_file_path)
+        # We need to save the DOCX file to a temporary file first for pypandoc to work
+        temp_input_path = "/tmp/uploaded_file.docx"
+        with open(temp_input_path, 'wb') as f:
+            f.write(docx_file.getbuffer())
+        
+        # Output PDF path
+        temp_output_path = "/tmp/output.pdf"
+        
+        # Convert the DOCX file to PDF using pypandoc
+        pypandoc.convert_file(temp_input_path, to='pdf', format='docx', outputfile=temp_output_path)
         
         # Provide download link for the converted PDF
-        with open(output_file_path, "rb") as pdf_file:
+        with open(temp_output_path, "rb") as pdf_file:
             st.download_button("Download PDF", pdf_file, file_name="converted_file.pdf", mime="application/pdf")
         
     except Exception as e:
         st.error(f"Error: {e}")
+
 
 
