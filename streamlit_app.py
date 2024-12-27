@@ -31,12 +31,12 @@ def fill_pdf(output_path, data):
                 
                 # 删除原占位符，插入空白字符
                 page.insert_text(
-                    rect.tl, " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
+                    rect.x0, " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
                 )
                 
                 # 用新的值覆盖占位符
                 page.insert_text(
-                    rect.tl, value, fontsize=12, fontname="helv", color=(0, 0, 0)  # 使用黑色文本填充
+                    rect.x0, value, fontsize=12, fontname="helv", color=(0, 0, 0)  # 使用黑色文本填充
                 )
                 
     pdf.save(output_path)
@@ -52,6 +52,7 @@ postal = st.text_input("Postal Code")
 title = st.selectbox("Title", ["Mr.", "Ms."])
 amount = st.number_input("Amount", min_value=0.0, format="%.2f")
 formatted_amount = "{:,.2f}".format(amount)
+
 def amount_to_words(amount):
     return num2words(amount, to='currency', lang='en', currency ='USD').title()
 amount_words = amount_to_words(amount)
@@ -67,8 +68,8 @@ data = {
     "Address": address,
     "Postal": postal,
     "gender": title,
-    "Amount": str(amount),
-    "Amount Words":formatted_amount
+    "Amount": str(formatted_amount),
+    "Amount Words":amount_words
 }
 
 # 生成 PDF
