@@ -34,14 +34,6 @@ def fill_pdf(toutput_path, data):
 
 # Streamlit 界面
 st.title("PDF 模板填充器")
-def amount_to_words(amount):
-    return num2words(amount, to='currency', lang='en', currency ='USD').title()
-amount_words = amount_to_words(amount)
-
-def get_current_date():
-    now = datetime.now()
-    return now.strftime("%B %d, %Y")
-    
 current_date = get_current_date()
 last_name = st.text_input("Last Name")
 first_name = st.text_input("First Name")
@@ -50,6 +42,14 @@ postal = st.text_input("Postal Code")
 title = st.selectbox("Title", ["Mr.", "Ms."])
 amount = st.number_input("Amount", min_value=0.0, format="%.2f")
 formatted_amount = "{:,.2f}".format(amount)
+def amount_to_words(amount):
+    return num2words(amount, to='currency', lang='en', currency ='USD').title()
+amount_words = amount_to_words(amount)
+
+def get_current_date():
+    now = datetime.now()
+    return now.strftime("%B %d, %Y")
+    
 data = {
     "First Name": first_name,
     "Last Name": last_name,
