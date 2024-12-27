@@ -34,7 +34,6 @@ def fill_pdf(toutput_path, data):
 
 # Streamlit 界面
 st.title("PDF 模板填充器")
-current_date = get_current_date()
 last_name = st.text_input("Last Name")
 first_name = st.text_input("First Name")
 address = st.text_area("Address")
@@ -49,6 +48,7 @@ amount_words = amount_to_words(amount)
 def get_current_date():
     now = datetime.now()
     return now.strftime("%B %d, %Y")
+current_date = get_current_date()
     
 data = {
     "First Name": first_name,
