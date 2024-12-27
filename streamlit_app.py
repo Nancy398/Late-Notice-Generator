@@ -72,58 +72,58 @@ if st.button("生成 PDF"):
                 mime="application/pdf"
             )
         st.success("PDF 生成成功！")
-    else:
-        st.error("请先上传 PDF 模板！")
+#     else:
+#         st.error("请先上传 PDF 模板！")
 
 
-# 用户输入替换值
+# # 用户输入替换值
 
-# 将金额转换为英文大写
+# # 将金额转换为英文大写
 
 
-if st.button("生成 PDF"):
-    for paragraph in doc.paragraphs:
-        if "{First Name}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{First Name}", first_name)
-        if "{Last Name}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{Last Name}", last_name)
-        if "{Date}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{Date}", current_date)
-        if "{Address}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{Address}", address)
-        if "{Postal}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{Postal}", postal)
-        if "{gender}" in paragraph.text:
-            paragraph.text = paragraph.text.replace("{gender}", title)
-        if "{Amount}" in paragraph.text:
-            before_text = paragraph.text.split("{Amount}")[0]
-            after_text = paragraph.text.split("{Amount}")[1]
-            paragraph.clear()
-            paragraph.add_run(before_text)
-            run = paragraph.add_run(str(formatted_amount))
-            run.bold = True
-            run.underline = True
-            paragraph.add_run(after_text)
-        if "{Amount Words}" in paragraph.text:
-            before_text = paragraph.text.split("{Amount Words}")[0]
-            after_text = paragraph.text.split("{Amount Words}")[1]
-            paragraph.clear()
-            paragraph.add_run(before_text)
-            run = paragraph.add_run(amount_words)
-            run.bold = True
-            run.underline = True
-            paragraph.add_run(after_text)
+# if st.button("生成 PDF"):
+#     for paragraph in doc.paragraphs:
+#         if "{First Name}" in paragraph.text:
+#             paragraph.text = paragraph.text.replace("{First Name}", first_name)
+#         if "{Last Name}" in paragraph.text:
+#             paragraph.text = paragraph.text.replace("{Last Name}", last_name)
+#         if "{Date}" in paragraph.text:
+#             paragraph.text = paragraph.text.replace("{Date}", current_date)
+#         if "{Address}" in paragraph.text:
+#             paragraph.text = paragraph.text.replace("{Address}", address)
+#         if "{Postal}" in paragraph.text:
+#             paragraph.text = paragraph.text.replace("{Postal}", postal)
+#         if "{gender}" in paragraph.text:
+#             paragraph.text = paragraph.text.replace("{gender}", title)
+#         if "{Amount}" in paragraph.text:
+#             before_text = paragraph.text.split("{Amount}")[0]
+#             after_text = paragraph.text.split("{Amount}")[1]
+#             paragraph.clear()
+#             paragraph.add_run(before_text)
+#             run = paragraph.add_run(str(formatted_amount))
+#             run.bold = True
+#             run.underline = True
+#             paragraph.add_run(after_text)
+#         if "{Amount Words}" in paragraph.text:
+#             before_text = paragraph.text.split("{Amount Words}")[0]
+#             after_text = paragraph.text.split("{Amount Words}")[1]
+#             paragraph.clear()
+#             paragraph.add_run(before_text)
+#             run = paragraph.add_run(amount_words)
+#             run.bold = True
+#             run.underline = True
+#             paragraph.add_run(after_text)
 
-doc.save("Transfer.docx")
-#     # 提供下载链接
-st.success("Docx 已生成！")
-with open("Transfer.docx", "rb") as f:
-    st.download_button(
-        label="下载 docx 文件",
-        data=f,
-        file_name="Late Notice.docx",
-        mime="application/pdf"
-    )
+# doc.save("Transfer.docx")
+# #     # 提供下载链接
+# st.success("Docx 已生成！")
+# with open("Transfer.docx", "rb") as f:
+#     st.download_button(
+#         label="下载 docx 文件",
+#         data=f,
+#         file_name="Late Notice.docx",
+#         mime="application/pdf"
+#     )
 
 
 
