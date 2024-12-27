@@ -27,7 +27,9 @@ def fill_pdf(toutput_path, data):
                 page.insert_text(
                     rect.tl, value, fontsize=12, fontname="helv", color=(0, 0, 0)
                 )
-                page.insert_text(rect.tl, " " * len(search_term), fontsize=12, fontname="helv", color=(0, 0, 0))
+                page.insert_text(
+                    rect.tl, " " * len(search_term), fontsize=12, fontname="helv", color=(0, 0, 0)
+                )
 
     pdf.save(output_path)
     pdf.close()
