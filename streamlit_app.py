@@ -78,7 +78,7 @@ with open("Transfer.docx", "rb") as f:
 
 # Title of the Streamlit app
 st.title("DOCX to PDF Converter")
-
+pypandoc.download_pandoc()
 # File uploader
 uploaded_file = st.file_uploader("Upload DOCX file", type="docx")
 
