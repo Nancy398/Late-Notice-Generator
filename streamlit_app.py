@@ -13,7 +13,7 @@ import streamlit as st
 import fitz  # PyMuPDF
 import os
 
-def fill_pdf(output_path, data):
+def fill_pdf(output_path, data，text_parts):
     pdf = fitz.open("Late Notice.pdf")
 
     for page_num in range(len(pdf)):
@@ -28,15 +28,32 @@ def fill_pdf(output_path, data):
                 rect = match  # 获取占位符的矩形区域
                 # 用白色矩形覆盖占位符区域
                 page.draw_rect(rect, color=(1, 1, 1), fill=(1, 1, 1))
+                is_bold = False
+                is_underlined = False
+
+                for part in text_parts:
+                    if part[0] == key:
+                        is_bold = part[1]
+                        is_underlined = part[2]
+                fontname = "timesb" if is_bold else "times"
 
                 # 插入新的文本，确保字体大小适应
                 page.insert_text(
                     (rect.x0,rect.y1-2.5),  # 插入文本的位置是占位符的左上角
                     value,
                     fontsize=12,  # 自动计算的字体大小
-                    fontname="Times-Roman",  # 字体名称
+                    fontname=fontname,  # 字体名称
                     color=(0, 0, 0)  # 黑色文本
                 )
+                if is_underlined:
+                    text_width = fitz.get_text_length(value, fontsize=fontsize, fontname=fontname)
+                    underline_y = rect.y1 -1。5  # 下划线稍微低于文本基线
+                    page.draw_line(
+                        (rect.x0, underline_y),  # 起点
+                        (rect.x0 + text_width, underline_y),  # 终点
+                        color=(0, 0, 0),  # 黑色线条
+                        width=0.5  # 下划线宽度
+                    )
 
     # 保存修改后的 PDF
     pdf.save(output_path)
@@ -96,17 +113,29 @@ data = {
     "Address": address,
     "Postal": postal,
     "gen": title,
-    "Amount Words":f"{amount_word}(${str(formatted_amount)})",
+    "Amount Words":f"{amount_word} (${str(formatted_amount)}).",
     "Date":current_date,
     "DateB":current_date,
     "Full Address":f"{address}, Los Angeles, CA, {postal}",
     "gender": f"{title}{last_name},"
 }
 
+text_parts = [
+    ("Full Name", False, False),
+    ("Last Name", False, False),
+    ("Address", False, False),
+    ("Postal", False, False),
+    ("Amount Words", True, True),
+    ("Date", False, False),
+    ("DateB", True, False),
+    ("Full Address", True, False),
+    ("gender", False, False),
+]
+
 # 生成 PDF
 if st.button("生成 PDF"):
         output_path = "filled_template.pdf"
-        fill_pdf(output_path, data)
+        fill_pdf(output_path, data，text_parts)
         with open(output_path, "rb") as f:
             st.download_button(
                 label="下载 PDF",
