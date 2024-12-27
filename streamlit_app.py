@@ -35,7 +35,7 @@ def fill_pdf(output_path, data,text_parts):
                     if part[0] == key:
                         is_bold = part[1]
                         is_underlined = part[2]
-                fontname = "timesb" if is_bold else "times"
+                fontname = "Times-Roman" if is_bold else "Times-Bold"
 
                 # 插入新的文本，确保字体大小适应
                 page.insert_text(
