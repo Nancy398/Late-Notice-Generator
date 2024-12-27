@@ -55,7 +55,7 @@ data = {
     "Last Name": last_name,
     "Address": address,
     "Postal": postal,
-    "gender": gender,
+    "gender": title,
     "Amount": amount,
     "Amount Words":formatted_amount
 }
