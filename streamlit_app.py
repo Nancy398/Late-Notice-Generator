@@ -14,33 +14,62 @@ import fitz  # PyMuPDF
 import os
 
 # PDF 填充函数
+
+def calculate_font_size(text, rect_width, max_font_size=12, min_font_size=6):
+    """
+    计算自适应的字体大小
+    :param text: 要插入的文本
+    :param rect_width: 文本框的宽度
+    :param max_font_size: 最大字体大小
+    :param min_font_size: 最小字体大小
+    :return: 适合的字体大小
+    """
+    # 获取文本的长度
+    text_length = len(text)
+    
+    # 计算适合的字体大小
+    font_size = max_font_size
+
+    # 假设每个字符占用 0.6 的宽度（可以根据需要调整）
+    estimated_width = text_length * 0.6 * font_size
+    
+    # 根据宽度调整字体大小
+    while estimated_width > rect_width and font_size > min_font_size:
+        font_size -= 1
+        estimated_width = text_length * 0.6 * font_size
+    
+    return font_size
+
 def fill_pdf(output_path, data):
     pdf = fitz.open("Late Notice.pdf")
 
     for page_num in range(len(pdf)):
         page = pdf[page_num]
         for key, value in data.items():
-            
-            # 确保值是字符串类型
-            value = str(value)
-            search_term = f"{{{{{key}}}}}"  # 占位符格式 {{key}}
+            value = str(value)  # 确保值是字符串
+            search_term = f"{{{{{key}}}}}"  # 占位符格式
 
-            # 查找占位符
+            # 查找占位符位置
             matches = page.search_for(search_term)
             for match in matches:
-                rect = match
+                rect = match  # 获取占位符的矩形区域
 
-                # 删除原占位符，插入空白字符
+                # 计算自适应字体大小
+                font_size = calculate_font_size(value, rect.width)
+
+                # 用白色矩形覆盖占位符区域
                 page.draw_rect(rect, color=(1, 1, 1), fill=(1, 1, 1))
-                # page.insert_text(
-                #     (rect.x0, rect.y1), " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
-                # )
-                
-                # 用新的值覆盖占位符
+
+                # 插入新的文本，确保字体大小适应
                 page.insert_text(
-                    (rect.x0, rect.y1), value, fontsize=12, fontname="helv", color=(0, 0, 0)  # 使用黑色文本填充
+                    (rect.x0,rect.y1),  # 插入文本的位置是占位符的左上角
+                    value,
+                    fontsize=font_size,  # 自动计算的字体大小
+                    fontname="helv",  # 字体名称
+                    color=(0, 0, 0)  # 黑色文本
                 )
-                
+
+    # 保存修改后的 PDF
     pdf.save(output_path)
     pdf.close()
 
