@@ -27,7 +27,7 @@ def fill_pdf(toutput_path, data):
                 page.insert_text(
                     rect.tl, value, fontsize=12, fontname="helv", color=(0, 0, 0)
                 )
-                page.delete_text(rect)  # 删除原占位符
+                # page.delete_text(rect)  # 删除原占位符
     
     pdf.save(output_path)
     pdf.close()
