@@ -71,7 +71,7 @@ data = {
     "Postal": postal,
     "gender": title,
     "Amount": str(formatted_amount),
-    "Amount Words":amount_words
+    "Amount Words":amount_words,
     "Date":current_date
 }
 
