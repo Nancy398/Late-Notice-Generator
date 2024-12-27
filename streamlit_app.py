@@ -98,7 +98,7 @@ if uploaded_file is not None:
         temp_output_path = "/tmp/output.pdf"
         
         # Convert the DOCX file to PDF using pypandoc
-        pypandoc.convert_file(temp_input_path, to='pdf', format='docx', outputfile=temp_output_path,extra_args=['--pdf-engine=/usr/bin/pdflatex'])
+        pandoc.convert_file(temp_input_path, to='pdf', format='docx', outputfile=temp_output_path,extra_args=['--pdf-engine=/usr/bin/pdflatex'])
         
         # Provide download link for the converted PDF
         with open(temp_output_path, "rb") as pdf_file:
