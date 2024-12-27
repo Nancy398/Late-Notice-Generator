@@ -72,11 +72,14 @@ def format_amount_in_words(amount):
     # 将整数部分转化为英文单词
     dollar_words = p.number_to_words(dollars).replace(",", "")  # 移除逗号
     
+    # 将金额转换为每个单词首字母大写
+    dollar_words = dollar_words.title()  # 移除逗号
+    
     # 创建最终格式化字符串
     if cents == 0:
-        return f"{dollar_words.capitalize()} Dollars"
+        return f"{dollar_words} Dollars"
     else:
-        return f"{dollar_words.capitalize()} Dollars and {cents}/100 Cents"
+        return f"{dollar_words} Dollars and {cents}/100 Cents"
 amount_word = format_amount_in_words(amount)        
 def amount_to_words(amount):
     return num2words(amount, to='currency', lang='en', currency ='USD').title()
