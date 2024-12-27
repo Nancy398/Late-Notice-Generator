@@ -23,9 +23,9 @@ def fill_pdf(output_path, data):
             search_term = f"{{{{{key}}}}}"  # 占位符格式
 
             if key == "Full Address":
-                value = f"{data['Address']}, Los Angeles, CA, {data['Postal']}"
+                value = f"{data['address']}, Los Angeles, CA, {data['postal']}"
             if key == "gender":
-                value = f"{data['gen']}{data['Last Name']},"
+                value = f"{data['title']}{data['last_name']},"
 
             # 查找占位符位置
             matches = page.search_for(search_term)
