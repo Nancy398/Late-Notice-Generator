@@ -96,9 +96,9 @@ data = {
     "Address": address,
     "Postal": postal,
     "gen": title,
-    "Amount": str(formatted_amount),
-    "Amount Words":amount_word,
+    "Amount Words":f"{amount_word}(${str(formatted_amount)})",
     "Date":current_date,
+    "DateB":current_date,
     "Full Address":f"{address}, Los Angeles, CA, {postal}",
     "gender": f"{title}{last_name},"
 }
