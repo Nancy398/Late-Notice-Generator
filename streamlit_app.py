@@ -20,7 +20,7 @@ def fill_pdf(toutput_path, data):
     for page_num in range(len(pdf)):
         page = pdf[page_num]
         for key, value in data.items():
-            search_term = f"{{{{ key }}}}"  # 占位符格式 {{key}}
+            search_term = f"{{{{{ key }}}}}"  # 占位符格式 {{key}}
             matches = page.search_for(search_term)
             for match in matches:
                 rect = match
