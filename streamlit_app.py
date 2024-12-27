@@ -75,8 +75,8 @@ data = {
     "gen": title,
     "Amount": str(formatted_amount),
     "Amount Words":amount_words,
-    "Date":current_date
-    "Full Address":f"{address}, Los Angeles, CA, {postal}"
+    "Date":current_date,
+    "Full Address":f"{address}, Los Angeles, CA, {postal}",
     "gender": f"{title}{last_name},"
 }
 
