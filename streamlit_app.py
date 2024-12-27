@@ -31,7 +31,7 @@ def fill_pdf(output_path, data):
 
                 # 插入新的文本，确保字体大小适应
                 page.insert_text(
-                    (rect.x0,rect.y1-3),  # 插入文本的位置是占位符的左上角
+                    (rect.x0,rect.y1-2.5),  # 插入文本的位置是占位符的左上角
                     value,
                     fontsize=12,  # 自动计算的字体大小
                     fontname="Times-Roman",  # 字体名称
@@ -53,6 +53,31 @@ title = st.selectbox("Title", ["Mr.", "Ms."])
 amount = st.number_input("Amount", min_value=0.0, format="%.2f")
 formatted_amount = "{:,.2f}".format(amount)
 
+import inflect
+
+def format_amount_in_words(amount):
+    """
+    将金额格式化为英文形式，并转换为单词形式。 
+    例如 1234.56 转换为 'One Thousand Two Hundred Thirty-Four Dollars and 56/100 Cents'
+    
+    :param amount: float, 输入的金额
+    :return: str, 格式化后的金额字符串
+    """
+    p = inflect.engine()
+
+    # 拆分整数部分和小数部分
+    dollars = int(amount)
+    cents = int(round((amount - dollars) * 100))
+
+    # 将整数部分转化为英文单词
+    dollar_words = p.number_to_words(dollars).replace(",", "")  # 移除逗号
+    
+    # 创建最终格式化字符串
+    if cents == 0:
+        return f"{dollar_words.capitalize()} Dollars"
+    else:
+        return f"{dollar_words.capitalize()} Dollars and {cents}/100 Cents"
+amount_word = format_amount_in_words(amount)        
 def amount_to_words(amount):
     return num2words(amount, to='currency', lang='en', currency ='USD').title()
 amount_words = amount_to_words(amount)
@@ -69,7 +94,7 @@ data = {
     "Postal": postal,
     "gen": title,
     "Amount": str(formatted_amount),
-    "Amount Words":amount_words,
+    "Amount Words":amount_word,
     "Date":current_date,
     "Full Address":f"{address}, Los Angeles, CA, {postal}",
     "gender": f"{title}{last_name},"
