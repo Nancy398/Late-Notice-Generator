@@ -5,6 +5,7 @@ from num2words import num2words  # 用于将数字转换为英文大写
 from datetime import datetime
 from docx import Document
 import pandoc
+import subprocess
 
 # 加载本地模板
 def load_template(file_path="Late Rent Notice Template.docx"):
