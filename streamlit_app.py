@@ -31,7 +31,7 @@ def fill_pdf(output_path, data):
                 rect = match
 
                 # 删除原占位符，插入空白字符
-                page.draw_rect(rect, color=(1, 1, 1))
+                page.draw_rect(rect, color=(1, 1, 1), fill=(1, 1, 1))
                 # page.insert_text(
                 #     (rect.x0, rect.y1), " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
                 # )
@@ -72,6 +72,7 @@ data = {
     "gender": title,
     "Amount": str(formatted_amount),
     "Amount Words":amount_words
+    "Date":current_date
 }
 
 # 生成 PDF
