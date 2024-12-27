@@ -13,7 +13,7 @@ import streamlit as st
 import fitz  # PyMuPDF
 import os
 
-def fill_pdf(output_path, data，text_parts):
+def fill_pdf(output_path, data,text_parts):
     pdf = fitz.open("Late Notice.pdf")
 
     for page_num in range(len(pdf)):
@@ -135,7 +135,7 @@ text_parts = [
 # 生成 PDF
 if st.button("生成 PDF"):
         output_path = "filled_template.pdf"
-        fill_pdf(output_path, data，text_parts)
+        fill_pdf(output_path, data,text_parts)
         with open(output_path, "rb") as f:
             st.download_button(
                 label="下载 PDF",
