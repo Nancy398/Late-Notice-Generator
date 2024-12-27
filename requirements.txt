@@ -8,3 +8,4 @@ fitz
 PyMuPDF
 PyPDF2
 fitz
+inflect
