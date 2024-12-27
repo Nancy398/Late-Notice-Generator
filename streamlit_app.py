@@ -36,7 +36,7 @@ def fill_pdf(output_path, data):
 
                 # 插入新的文本，确保字体大小适应
                 page.insert_text(
-                    (rect.x0,rect.y1-2),  # 插入文本的位置是占位符的左上角
+                    (rect.x0,rect.y1-3),  # 插入文本的位置是占位符的左上角
                     value,
                     fontsize=12,  # 自动计算的字体大小
                     fontname="Times-Roman",  # 字体名称
@@ -76,6 +76,8 @@ data = {
     "Amount": str(formatted_amount),
     "Amount Words":amount_words,
     "Date":current_date
+    "Full Address":f"{address}, Los Angeles, CA, {postal}"
+    "gender": f"{title}{last_name},"
 }
 
 # 生成 PDF
