@@ -31,9 +31,10 @@ def fill_pdf(output_path, data):
                 rect = match
 
                 # 删除原占位符，插入空白字符
-                page.insert_text(
-                    (rect.x0, rect.y1), " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
-                )
+                page.delete_text(rect)
+                # page.insert_text(
+                #     (rect.x0, rect.y1), " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
+                # )
                 
                 # 用新的值覆盖占位符
                 page.insert_text(
