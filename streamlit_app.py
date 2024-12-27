@@ -22,6 +22,11 @@ def fill_pdf(output_path, data):
             value = str(value)  # 确保值是字符串
             search_term = f"{{{{{key}}}}}"  # 占位符格式
 
+            if key == "Full Address":
+                value = f"{data['Address']}, Los Angeles, CA, {data['Postal']}"
+            if key == "gender":
+                value = f"{data['gen']}{data['Last Name']},"
+
             # 查找占位符位置
             matches = page.search_for(search_term)
             for match in matches:
