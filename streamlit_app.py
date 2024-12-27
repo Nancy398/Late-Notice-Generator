@@ -14,26 +14,34 @@ import fitz  # PyMuPDF
 import os
 
 # PDF 填充函数
-def fill_pdf(toutput_path, data):
-    pdf = fitz.open("Late Notice.pdf")
-    
+def fill_pdf(template_path, output_path, data):
+    pdf = fitz.open(template_path)
+
     for page_num in range(len(pdf)):
         page = pdf[page_num]
         for key, value in data.items():
-            search_term = f"{{{{{ key }}}}}"  # 占位符格式 {{key}}
+            # 确保值是字符串类型
+            value = str(value)
+            search_term = f"{{{{{key}}}}}"  # 占位符格式 {{key}}
+
+            # 查找占位符
             matches = page.search_for(search_term)
             for match in matches:
                 rect = match
+                
+                # 删除原占位符，插入空白字符
                 page.insert_text(
                     rect.tl, " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
                 )
+                
+                # 用新的值覆盖占位符
                 page.insert_text(
-                    rect.tl, value, fontsize=12, fontname="helv", color=(0, 0, 0)
+                    rect.tl, value, fontsize=12, fontname="helv", color=(0, 0, 0)  # 使用黑色文本填充
                 )
-            
-
+                
     pdf.save(output_path)
     pdf.close()
+
 
 # Streamlit 界面
 st.title("PDF 模板填充器")
