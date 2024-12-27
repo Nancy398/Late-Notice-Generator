@@ -115,7 +115,7 @@ data = {
     "gen": title,
     "Amount Words":f"{current_date} is {amount_word} (${str(formatted_amount)}).",
     "Date":current_date,
-    "DateB":f"{current_date} for your reference,
+    "DateB":f"{current_date} for your reference.",
     "Full Address":f"{address}, Los Angeles, CA, {postal}",
     "gender": f"{title}{last_name},"
 }
