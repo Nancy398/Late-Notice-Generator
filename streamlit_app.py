@@ -56,7 +56,7 @@ data = {
     "Address": address,
     "Postal": postal,
     "gender": title,
-    "Amount": amount,
+    "Amount": str(amount),
     "Amount Words":formatted_amount
 }
 
