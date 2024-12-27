@@ -31,7 +31,7 @@ def fill_pdf(output_path, data):
 
                 # 插入新的文本，确保字体大小适应
                 page.insert_text(
-                    (rect.x0,rect.y1),  # 插入文本的位置是占位符的左上角
+                    (rect.x0,rect.y1+20),  # 插入文本的位置是占位符的左上角
                     value,
                     fontsize=12,  # 自动计算的字体大小
                     fontname="Times-Roman",  # 字体名称
