@@ -31,11 +31,11 @@ def calculate_font_size(text, rect_width, max_font_size=12, min_font_size=6):
     font_size = max_font_size
 
     # 假设每个字符占用 0.6 的宽度（可以根据需要调整）
-    estimated_width = text_length * 3 * font_size
+    estimated_width = text_length * 1 * font_size
     
     # 根据宽度调整字体大小
     while estimated_width > rect_width and font_size > min_font_size:
-        font_size -= 1
+        font_size -= 3
         estimated_width = text_length * 3 * font_size
     
     return font_size
