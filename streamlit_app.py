@@ -14,8 +14,8 @@ import fitz  # PyMuPDF
 import os
 
 # PDF 填充函数
-def fill_pdf(template_path, output_path, data):
-    pdf = fitz.open(template_path)
+def fill_pdf(output_path, data):
+    pdf = fitz.open("Late Notice.pdf")
 
     for page_num in range(len(pdf)):
         page = pdf[page_num]
