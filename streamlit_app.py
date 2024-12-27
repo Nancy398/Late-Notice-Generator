@@ -77,21 +77,33 @@ with open("Transfer.docx", "rb") as f:
 
 st.title("DOCX to PDF Converter")
 pypandoc.download_pandoc()
-# File uploader to upload DOCX
-uploaded_file = st.file_uploader("Upload DOCX File", type=["docx"])
+st.title("DOCX to PDF Converter")
+
+uploaded_file = st.file_uploader("Upload DOCX file", type="docx")
 
 if uploaded_file is not None:
-    # Save the uploaded file locally
-    with open("uploaded_file.docx", "wb") as f:
+    # Save the uploaded file temporarily
+    input_file_path = "uploaded_file.docx"
+    with open(input_file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
     
-    # Convert DOCX to PDF using pypandoc
+    # Define the output file path
+    output_file_path = "output.pdf"
+    
+    # Convert the DOCX file to PDF using pypandoc
     try:
-        output_file = 'output.pdf'
-        pypandoc.convert_file(uploaded_file, to='pdf', format='docx', outputfile=output_file)
-
-        with open("output.pdf", "rb") as f:
-            st.download_button("Download PDF", f, file_name="output.pdf", mime="application/pdf")
+        # Call pypandoc.convert_file with file paths (not BytesIO objects)
+        pypandoc.convert_file(input_file_path, to='pdf', format='docx', outputfile=output_file_path)
+        
+        # Provide download link for the converted PDF
+        with open(output_file_path, "rb") as pdf_file:
+            st.download_button("Download PDF", pdf_file, file_name="converted_file.pdf", mime="application/pdf")
+        
     except Exception as e:
         st.error(f"Error: {e}")
+    
+    # Clean up temporary files
+    os.remove(input_file_path)
+    os.remove(output_file_path)
+
 
