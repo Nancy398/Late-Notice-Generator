@@ -77,7 +77,7 @@ def fill_pdf(output_path, data):
 # Streamlit 界面
 st.title("PDF 模板填充器")
 last_name = st.text_input("Last Name")
-first_name = st.text_input("First Name")
+full_name = st.text_input("Full Name")
 address = st.text_area("Address")
 postal = st.text_input("Postal Code")
 title = st.selectbox("Title", ["Mr.", "Ms."])
@@ -94,11 +94,11 @@ def get_current_date():
 current_date = get_current_date()
     
 data = {
-    "First Name": first_name,
+    "Full Name": full_name,
     "Last Name": last_name,
     "Address": address,
     "Postal": postal,
-    "gender": title,
+    "gen": title,
     "Amount": str(formatted_amount),
     "Amount Words":amount_words,
     "Date":current_date
