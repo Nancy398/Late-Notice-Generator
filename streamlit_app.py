@@ -113,9 +113,9 @@ data = {
     "Address": address,
     "Postal": postal,
     "gen": title,
-    "Amount Words":f"{amount_word} (${str(formatted_amount)}).",
+    "Amount Words":f"{current_date} is {amount_word} (${str(formatted_amount)}).",
     "Date":current_date,
-    "DateB":current_date,
+    "DateB":f"{current_date} for your reference,
     "Full Address":f"{address}, Los Angeles, CA, {postal}",
     "gender": f"{title}{last_name},"
 }
@@ -127,7 +127,7 @@ text_parts = [
     ("Postal", False, False),
     ("Amount Words", True, True),
     ("Date", False, False),
-    ("DateB", True, False),
+    ("DateB", False, False),
     ("Full Address", True, False),
     ("gender", False, False),
 ]
