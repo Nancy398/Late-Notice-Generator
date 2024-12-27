@@ -87,7 +87,9 @@ if uploaded_file is not None:
     
     # Convert DOCX to PDF using pypandoc
     try:
-        output = pypandoc.convert_file("uploaded_file.docx", to='pdf')
+        output_file = 'output.pdf'
+        pypandoc.convert_file(uploaded_file, to='pdf', format='docx', outputfile=output_file)
+
         with open("output.pdf", "rb") as f:
             st.download_button("Download PDF", f, file_name="output.pdf", mime="application/pdf")
     except Exception as e:
