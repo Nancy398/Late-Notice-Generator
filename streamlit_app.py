@@ -29,16 +29,15 @@ def fill_pdf(output_path, data):
             matches = page.search_for(search_term)
             for match in matches:
                 rect = match
-                x, y = rect.tl.x, rect.tl.y
 
                 # 删除原占位符，插入空白字符
                 page.insert_text(
-                    (x, y), " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
+                    (rect.x0, rect.y0), " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
                 )
                 
                 # 用新的值覆盖占位符
                 page.insert_text(
-                    (x, y), value, fontsize=12, fontname="helv", color=(0, 0, 0)  # 使用黑色文本填充
+                    (rect.x0, rect.y0), value, fontsize=12, fontname="helv", color=(0, 0, 0)  # 使用黑色文本填充
                 )
                 
     pdf.save(output_path)
