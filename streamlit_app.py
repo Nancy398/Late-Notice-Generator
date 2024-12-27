@@ -20,6 +20,7 @@ def fill_pdf(output_path, data):
     for page_num in range(len(pdf)):
         page = pdf[page_num]
         for key, value in data.items():
+            
             # 确保值是字符串类型
             value = str(value)
             search_term = f"{{{{{key}}}}}"  # 占位符格式 {{key}}
@@ -27,6 +28,7 @@ def fill_pdf(output_path, data):
             # 查找占位符
             matches = page.search_for(search_term)
             for match in matches:
+                rect = match
                 x, y = rect.tl.x, rect.tl.y
 
                 # 删除原占位符，插入空白字符
