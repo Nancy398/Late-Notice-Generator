@@ -13,33 +13,6 @@ import streamlit as st
 import fitz  # PyMuPDF
 import os
 
-# PDF 填充函数
-
-def calculate_font_size(text, rect_width, max_font_size=12, min_font_size=6):
-    """
-    计算自适应的字体大小
-    :param text: 要插入的文本
-    :param rect_width: 文本框的宽度
-    :param max_font_size: 最大字体大小
-    :param min_font_size: 最小字体大小
-    :return: 适合的字体大小
-    """
-    # 获取文本的长度
-    text_length = len(text)
-    
-    # 计算适合的字体大小
-    font_size = max_font_size
-
-    # 假设每个字符占用 0.6 的宽度（可以根据需要调整）
-    estimated_width = text_length * 1 * font_size
-    
-    # 根据宽度调整字体大小
-    while estimated_width > rect_width and font_size > min_font_size:
-        font_size -= 3
-        estimated_width = text_length * 3 * font_size
-    
-    return font_size
-
 def fill_pdf(output_path, data):
     pdf = fitz.open("Late Notice.pdf")
 
@@ -53,10 +26,6 @@ def fill_pdf(output_path, data):
             matches = page.search_for(search_term)
             for match in matches:
                 rect = match  # 获取占位符的矩形区域
-
-                # 计算自适应字体大小
-                font_size = calculate_font_size(value, rect.width)
-
                 # 用白色矩形覆盖占位符区域
                 page.draw_rect(rect, color=(1, 1, 1), fill=(1, 1, 1))
 
@@ -64,8 +33,8 @@ def fill_pdf(output_path, data):
                 page.insert_text(
                     (rect.x0,rect.y1),  # 插入文本的位置是占位符的左上角
                     value,
-                    fontsize=font_size,  # 自动计算的字体大小
-                    fontname="helv",  # 字体名称
+                    fontsize=12,  # 自动计算的字体大小
+                    fontname="Times-Roman",  # 字体名称
                     color=(0, 0, 0)  # 黑色文本
                 )
 
