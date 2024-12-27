@@ -25,11 +25,12 @@ def fill_pdf(toutput_path, data):
             for match in matches:
                 rect = match
                 page.insert_text(
-                    rect.tl, value, fontsize=12, fontname="helv", color=(0, 0, 0)
+                    rect.tl, " " * len(search_term), fontsize=12, fontname="helv", color=(1, 1, 1)  # 使用白色替换占位符
                 )
                 page.insert_text(
-                    rect.tl, " " * len(search_term), fontsize=12, fontname="helv", color=(0, 0, 0)
+                    rect.tl, value, fontsize=12, fontname="helv", color=(0, 0, 0)
                 )
+            
 
     pdf.save(output_path)
     pdf.close()
