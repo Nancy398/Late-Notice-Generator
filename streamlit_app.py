@@ -165,7 +165,7 @@ if st.button("生成 PDF"):
         st.download_button(
             label="Download Merged PDF",
             data=merged_pdf,
-            file_name="Late Notice - f"{full_name}".pdf",
+            file_name=f"Late Notice - {full_name}.pdf",
             mime="application/pdf",
         )
 
