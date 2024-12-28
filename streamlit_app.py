@@ -43,7 +43,7 @@ def fill_pdf(data,text_parts):
                 )
                 if is_underlined:
                     text_width = fitz.get_text_length(value, fontsize=12, fontname=fontname)
-                    underline_y = rect.y1 -2  # 下划线稍微低于文本基线
+                    underline_y = rect.y1 - 2.5  # 下划线稍微低于文本基线
                     page.draw_line(
                         (rect.x0, underline_y),  # 起点
                         (rect.x0 + text_width, underline_y),  # 终点
