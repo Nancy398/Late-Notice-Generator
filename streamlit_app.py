@@ -7,13 +7,15 @@ from docx import Document
 import pandoc
 import fitz  # PyMuPDF
 import os
+from PyPDF2 import PdfReader, PdfWriter
+from fpdf import FPDF
 
 # 加载本地模板
 import streamlit as st
 import fitz  # PyMuPDF
 import os
 
-def fill_pdf(output_path, data,text_parts):
+def fill_pdf(data,text_parts):
     pdf = fitz.open("Late Notice.pdf")
 
     for page_num in range(len(pdf)):
@@ -56,9 +58,32 @@ def fill_pdf(output_path, data,text_parts):
                     )
 
     # 保存修改后的 PDF
-    pdf.save(output_path)
-    pdf.close()
+    buffer = io.BytesIO()
+    pdf.output(buffer)
+    buffer.seek(0)
+    return buffer
 
+# Function to merge PDFs
+def merge_pdfs(generated_pdf, uploaded_pdf):
+    writer = PdfWriter()
+
+    # Add pages from the generated PDF
+    generated_reader = PdfReader(generated_pdf)
+    for page in generated_reader.pages:
+        writer.add_page(page)
+
+    # Add pages from the uploaded PDF
+    uploaded_reader = PdfReader(uploaded_pdf)
+    for page in uploaded_reader.pages:
+        writer.add_page(page)
+
+    # Save the merged PDF to a BytesIO buffer
+    output_buffer = io.BytesIO()
+    writer.write(output_buffer)
+    output_buffer.seek(0)
+    return output_buffer
+
+uploaded_file = st.file_uploader("Upload Tenant Ledger", type="pdf")
 
 # Streamlit 界面
 st.title("PDF 模板填充器")
@@ -134,18 +159,21 @@ text_parts = [
 
 # 生成 PDF
 if st.button("生成 PDF"):
-        output_path = "filled_template.pdf"
-        fill_pdf(output_path, data,text_parts)
-        with open(output_path, "rb") as f:
-            st.download_button(
-                label="下载 PDF",
-                data=f,
-                file_name="filled_template.pdf",
-                mime="application/pdf"
-            )
+    if not uploaded_file:
+        st.warning("Please upload a PDF to merge.")
+    else:
+        # Generate filled PDF
+        generated_pdf = fill_pdf(data, text_parts)
+        merged_pdf = merge_pdfs(generated_pdf, uploaded_file)
         st.success("PDF 生成成功！")
-#     else:
-#         st.error("请先上传 PDF 模板！")
+        st.download_button(
+            label="Download Merged PDF",
+            data=merged_pdf,
+            file_name="merged_document.pdf",
+            mime="application/pdf",
+        )
+        st.success("PDF 生成成功！")
+
 
 
 
