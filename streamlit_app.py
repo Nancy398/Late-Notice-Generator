@@ -10,11 +10,6 @@ import os
 from PyPDF2 import PdfReader, PdfWriter
 from fpdf import FPDF
 
-# 加载本地模板
-import streamlit as st
-import fitz  # PyMuPDF
-import os
-
 def fill_pdf(data,text_parts):
     pdf = fitz.open("Late Notice.pdf")
 
@@ -58,7 +53,7 @@ def fill_pdf(data,text_parts):
                     )
 
     # 保存修改后的 PDF
-    buffer = io.BytesIO()
+    buffer = BytesIO()
     pdf.output(buffer)
     buffer.seek(0)
     return buffer
@@ -78,7 +73,7 @@ def merge_pdfs(generated_pdf, uploaded_pdf):
         writer.add_page(page)
 
     # Save the merged PDF to a BytesIO buffer
-    output_buffer = io.BytesIO()
+    output_buffer = BytesIO()
     writer.write(output_buffer)
     output_buffer.seek(0)
     return output_buffer
