@@ -167,7 +167,6 @@ if st.button("生成 PDF"):
             file_name="merged_document.pdf",
             mime="application/pdf",
         )
-        st.success("PDF 生成成功！")
 
 
 
