@@ -3,7 +3,6 @@ from io import BytesIO
 import pypandoc
 from num2words import num2words  # 用于将数字转换为英文大写
 from datetime import datetime
-from docx import Document
 import pandoc
 import fitz  # PyMuPDF
 import os
