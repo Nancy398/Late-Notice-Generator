@@ -78,10 +78,10 @@ def merge_pdfs(generated_pdf, uploaded_pdf):
     output_buffer.seek(0)
     return output_buffer
 
-uploaded_file = st.file_uploader("Upload Tenant Ledger", type="pdf")
+
 
 # Streamlit 界面
-st.title("PDF 模板填充器")
+st.title("Late Notice Generator")
 last_name = st.text_input("Last Name")
 full_name = st.text_input("Full Name")
 address = st.text_area("Address")
@@ -89,6 +89,7 @@ postal = st.text_input("Postal Code")
 title = st.selectbox("Title", ["Mr.", "Ms."])
 amount = st.number_input("Amount", min_value=0.0, format="%.2f")
 formatted_amount = "{:,.2f}".format(amount)
+uploaded_file = st.file_uploader("Upload Tenant Ledger", type="pdf")
 
 import inflect
 
