@@ -53,8 +53,9 @@ def fill_pdf(data,text_parts):
 
     # 保存修改后的 PDF
     buffer = BytesIO()
-    pdf.output(buffer)
-    buffer.seek(0)
+    pdf.save(buffer)
+    buffer.seek(0)  # 重置缓冲区指针
+    pdf.close()
     return buffer
 
 # Function to merge PDFs
