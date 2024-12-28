@@ -84,6 +84,7 @@ def merge_pdfs(generated_pdf, uploaded_pdf):
 st.title("Late Notice Generator")
 last_name = st.text_input("Last Name")
 full_name = st.text_input("Full Name")
+st.caption("Format:Last Name,First Name(Ex:Di,Zhongyue)")
 address = st.text_area("Address")
 postal = st.text_input("Postal Code")
 title = st.selectbox("Title", ["Mr.", "Ms."])
