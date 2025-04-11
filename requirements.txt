@@ -1,7 +1,7 @@
 streamlit
 num2words
 datetime
-pandoc
+fitz
 python-docx==0.8.11
 PyMuPDF
 PyPDF2
