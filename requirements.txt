@@ -4,6 +4,5 @@ PyPDF2
 inflect
 num2words
 pypandoc
-fitz
 datetime
 
