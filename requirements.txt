@@ -4,7 +4,6 @@ datetime
 pypandoc
 python-docx==0.8.11
 pandoc
-fitz
 PyMuPDF
 PyPDF2
 inflect
