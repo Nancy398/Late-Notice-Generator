@@ -4,6 +4,6 @@ PyPDF2
 inflect
 num2words
 pypandoc
-from num2words import num2words  # 用于将数字转换为英文大写
+fitz
 datetime
 
