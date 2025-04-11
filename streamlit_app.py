@@ -7,7 +7,6 @@ import pandoc
 import fitz  # PyMuPDF
 import os
 from PyPDF2 import PdfReader, PdfWriter
-from fpdf import FPDF
 
 def fill_pdf(data,text_parts):
     pdf = fitz.open("Late Notice.pdf")
